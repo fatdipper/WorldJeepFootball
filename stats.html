@@ -14,10 +14,12 @@
     }
    /* Top Navigation Bar */
 nav {
-  background-color: #2f3136; /* Slightly lighter dark nav */
+  background-color: #2f3136;
   padding: 15px 30px;
-  border-radius: 5px;
-  margin-bottom: 30px;
+  border-radius: 0 5px 5px 0; /* remove left rounding so it connects with sidebar */
+  margin: 0;
+  margin-left: -30px; /* offset to align with full width */
+  width: calc(100% + 30px); /* expand to line up */
   display: flex;
 }
 
@@ -45,8 +47,8 @@ nav a:hover {
 }
 
 .main-content {
-  margin-left: 300px;
-  margin-top: 60px; /* below nav bar */
+  margin-left: 280px;
+  margin-top: 30px; /* below nav bar */
   padding: 20px;
   color: white;
 }
