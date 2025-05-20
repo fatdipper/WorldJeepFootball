@@ -1,111 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Player Stats - World Jeep Football</title>
-  <style>
-    body {
-      min-height: 100vh;
-      background: linear-gradient(to top, #2c2f33 0%, #36393f 70%, #40444b 100%);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-      color: #dcddde;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    nav {
-      background-color: #2f3136;
-      padding: 15px 30px;
-      border-radius: 5px;
-      margin-bottom: 30px;
-      display: flex;
-    }
-    nav a {
-      color: #b9bbbe;
-      text-decoration: none;
-      margin-right: 25px;
-      font-weight: 600;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
-    nav a:hover {
-      color: #fff;
-    }
-    .content-wrapper {
-      background-color: #2f3136;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      max-width: 700px;
-      margin: 0 auto;
-      padding-bottom: 80px; /* space for footer */
-    }
-    h1 {
-      color: #fff;
-      font-weight: 700;
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-    /* Footer styles - keep consistent */
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #2f3136;
-      padding: 15px 0;
-      text-align: center;
-      border-radius: 0;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-    }
-    footer p {
-      margin: 0;
-      font-size: 20px;
-      color: #b9bbbe;
-      font-weight: 700;
-    }
-    footer a.discord-link {
-      color: #7289da;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      transition: color 0.3s;
-    }
-    footer a.discord-link:hover {
-      color: #99a9f5;
-    }
-    .discord-icon {
-      width: 28px;
-      height: 28px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Player Stats - World Jeep Football</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to top, #2c2f33 0%, #36393f 70%, #40444b 100%);
+    color: #dcddde;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background-color: #2f3136;
+    padding: 15px 30px;
+    border-radius: 0;
+    z-index: 1001;
+    display: flex;
+    gap: 20px;
+  }
+  nav a {
+    color: #b9bbbe;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: #fff;
+  }
+  /* Sidebar */
+  .sidebar {
+    width: 200px;
+    background-color: #2f3136;
+    padding-top: 70px; /* leave space for nav */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+  }
+  .player-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .player-item:hover {
+    background-color: #40444b;
+  }
+  .stars {
+    color: #f1c40f; /* gold color */
+    font-weight: 700;
+    user-select: none;
+  }
+  /* Content area */
+  .content-wrapper {
+    flex-grow: 1;
+    padding: 70px 30px 30px 30px;
+    overflow-y: auto;
+  }
+  h1 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 36px;
+    color: #fff;
+  }
+  /* Modal (popup) */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+  .modal {
+    background-color: #2f3136;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.9);
+    color: #dcddde;
+  }
+  .modal h2 {
+    margin-top: 0;
+  }
+  .close-btn {
+    background: #7289da;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .close-btn:hover {
+    background: #5b6eae;
+  }
+  /* Stats table inside modal */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #dcddde;
+  }
+  th, td {
+    border: 1px solid #40444b;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background-color: #36393f;
+  }
+</style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="stats.html">Player Stats</a>
-    <a href="wiki.html">Wiki</a>
-  </nav>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="stats.html">Player Stats</a>
+  <a href="wiki.html">Wiki</a>
+</nav>
 
-  <div class="content-wrapper">
-    <h1>Player Stats</h1>
-    <p>This is where your player stats will go!</p>
+<div class="sidebar">
+  <div class="player-item" data-name="fadippa" data-stars="5" data-matches="10" data-goals="7" data-assists="3" data-yellow="1" data-red="0">
+    <span>fadippa</span>
+    <span class="stars">★★★★★</span>
   </div>
+  <!-- Add more players here -->
+</div>
 
-  <footer>
-    <p>
-      <a href="https://discord.gg/f3CwZKhS" target="_blank" rel="noopener noreferrer" class="discord-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord" class="discord-icon" />
-        Join the server for more info!
-      </a>
-    </p>
-  </footer>
+<div class="content-wrapper">
+  <h1>Player Stats</h1>
+  <p>Click a player on the left to view detailed stats.</p>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="close-btn" id="closeModal">Close</button>
+    <h2 id="modalName">Player Name</h2>
+    <table>
+      <tbody>
+        <tr><th>Matches Played</th><td id="modalMatches"></td></tr>
+        <tr><th>Goals</th><td id="modalGoals"></td></tr>
+        <tr><th>Assists</th><td id="modalAssists"></td></tr>
+        <tr><th>Yellow Cards</th><td id="modalYellow"></td></tr>
+        <tr><th>Red Cards</th><td id="modalRed"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("modal");
+  const closeModalBtn = document.getElementById("closeModal");
+
+  // Show modal with player data
+  function showModal(playerDiv) {
+    document.getElementById("modalName").textContent = playerDiv.dataset.name;
+    document.getElementById("modalMatches").textContent = playerDiv.dataset.matches;
+    document.getElementById("modalGoals").textContent = playerDiv.dataset.goals;
+    document.getElementById("modalAssists").textContent = playerDiv.dataset.assists;
+    document.getElementById("modalYellow").textContent = playerDiv.dataset.yellow;
+    document.getElementById("modalRed").textContent = playerDiv.dataset.red;
+
+    modal.style.display = "flex";
+  }
+
+  // Close modal
+  closeModalBtn.onclick = () => {
+    modal.style.display = "none";
+  };
+
+  // Close modal on outside click
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // Add click listeners to all players
+  document.querySelectorAll(".player-item").forEach(player => {
+    player.addEventListener("click", () => {
+      showModal(player);
+    });
+  });
+</script>
 
 </body>
 </html>
