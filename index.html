@@ -54,26 +54,31 @@
     max-width: 700px;
   }
   footer {
-  margin-top: 50px;
-  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #2f3136;
+  padding: 15px 0;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.7);
+  z-index: 1000; /* make sure it stays on top */
 }
 
 footer p {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;  /* Bigger text */
   color: #b9bbbe;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 footer a.discord-link {
-  color: #7289da; /* Discord blue */
+  color: #7289da;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   transition: color 0.3s;
 }
 
@@ -82,8 +87,8 @@ footer a.discord-link:hover {
 }
 
 .discord-icon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 </style>
 </head>
