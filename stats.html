@@ -1,240 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Player Stats - World Jeep Football</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to top, #2f3136, #36393f);
-    color: #ffffff;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Player Stats - WorldJeep Football</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #2f3136, #36393f) no-repeat fixed;
+      background-size: cover;
+      color: #ffffff;
+    }
 
-  .sidebar {
-    width: 260px;
-    background-color: #2f3136;
-    padding: 10px;
-    height: 100vh;
-    overflow-y: auto;
-    position: fixed;
-    left: 0;
-    top: 0;
-  }
+    .sidebar {
+      width: 260px;
+      background-color: #2f3136;
+      padding: 10px;
+      height: 100vh;
+      overflow-y: auto;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
 
-  .main-content {
-    margin-left: 260px;
-    padding: 20px;
-  }
+    .main-content {
+      margin-left: 260px;
+      padding: 20px;
+    }
 
-  .player-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 10px;
-    margin-bottom: 5px;
-    background-color: #3a3f45;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
+    .player-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 10px;
+      margin-bottom: 5px;
+      background-color: #3a3f45;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
 
-  .player-item:hover {
-    background-color: #4752c4;
-  }
+    .player-item:hover {
+      background-color: #4752c4;
+    }
 
-  .player-item.no-stats {
-    cursor: default;
-    opacity: 0.6;
-  }
+    .player-item.no-stats {
+      cursor: default;
+      opacity: 0.6;
+    }
 
-  .stars {
-    color: gold;
-    font-size: 14px;
-    margin-left: 5px;
-  }
+    .stars {
+      color: gold;
+      font-size: 14px;
+      margin-left: 5px;
+    }
 
-  /* Modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-  }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+    }
 
-  .modal-content {
-    background-color: #2f3136;
-    margin: 8% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.7);
-  }
+    .modal-content {
+      background-color: #2f3136;
+      margin: 8% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    }
 
-  .close {
-    color: #999;
-    float: right;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+    .close {
+      color: #999;
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-  .close:hover {
-    color: #fff;
-  }
+    .close:hover {
+      color: #fff;
+    }
 
-  .modal-content h2 {
-    font-size: 26px;
-    margin-bottom: 5px;
-    color: #ffffff;
-  }
+    .modal-content h2 {
+      font-size: 26px;
+      margin-bottom: 5px;
+      color: #ffffff;
+    }
 
-  .modal-content .position-label {
-    font-size: 16px;
-    color: #b9bbbe;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+    .modal-content .position-label {
+      font-size: 16px;
+      color: #b9bbbe;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
 
-  .modal-content .overall-score {
-    font-size: 22px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 15px;
-  }
+    .modal-content .overall-score {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 12px;
-  }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: #2f3136;
-  }
+    ::-webkit-scrollbar-track {
+      background: #2f3136;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #5865F2;
-    border-radius: 6px;
-    border: 3px solid #2f3136;
-  }
+    ::-webkit-scrollbar-thumb {
+      background-color: #5865F2;
+      border-radius: 6px;
+      border: 3px solid #2f3136;
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #4752C4;
-  }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4752C4;
+    }
 
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: #161827 #2f3136;
-  }
-</style>
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #131424 #2f3136;
+    }
+  </style>
 </head>
 <body>
-
-<nav>
-  <a href="index.html">Home</a>
-  <a href="stats.html">Player Stats</a>
-  <a href="wiki.html">Wiki</a>
-</nav>
-
-<div class="sidebar">
-  <!-- 5 Stars -->
-  <div class="player-item" data-name="fadippa" data-stars="5" data-overall="94" data-position="Striker" data-ball="5" data-jeep="4" data-defense="3">
-    <span>fadippa</span>
-    <span class="stars">★★★★★</span>
-  </div>
-  <div class="player-item" data-name="raintac0l" data-stars="5" data-overall="93" data-position="Striker" data-ball="4" data-jeep="5" data-defense="4">
-    <span>raintac0l</span>
-    <span class="stars">★★★★★</span>
+  <div class="sidebar" id="sidebar">
+    <!-- Players will be injected here by JavaScript -->
   </div>
 
-  <!-- 4 Stars -->
-  <div class="player-item" data-name="Srsusdsa" data-stars="4" data-overall="86" data-position="Midfielder" data-ball="3" data-jeep="4" data-defense="3">
-    <span>Srsusdsa</span>
-    <span class="stars">★★★★☆</span>
+  <div class="main-content">
+    <h1>Player Stats</h1>
+    <p>Click a player to view their stats.</p>
   </div>
 
-  <!-- 0 Stars - No stats yet -->
-  <div class="player-item no-stats"><span>Rvzol</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>devilbestkiller</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>OffXxenemyxX</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>CalaMeniq</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>yerrsy</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>carsonstc</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>Clypers</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>BrilliantGamer7</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>CryptedC0mmando</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>executablesan</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>NotFxnta</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>GhoulzFtp</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>mealonhed</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>RemnantGuardian</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>thuggers0</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>iLikeAnimeEgirls1</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>InFamedKris</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>hyunliqht</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>Priest437</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>Valkyrie_Kronos</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>XXzeroshadow</span><span class="stars">☆☆☆☆☆</span></div>
-  <div class="player-item no-stats"><span>987630</span><span class="stars">☆☆☆☆☆</span></div>
-</div>
-
-<div class="content-wrapper">
-  <h1>Player Stats</h1>
-  <p>Click a player on the left to view detailed stats.</p>
-</div>
-
-<!-- Modal -->
-<div id="playerModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2 id="playerName">Player Name</h2>
-    <p id="playerPosition" class="position-label">Striker</p>
-    <p id="playerOverall" class="overall-score">94</p>
-    <hr>
-    <p><strong>Ball Handling:</strong> <span id="statBall">0</span>/5</p>
-    <p><strong>Jeep Control:</strong> <span id="statJeep">0</span>/5</p>
-    <p><strong>Defense:</strong> <span id="statDefense">0</span>/5</p>
+  <!-- Modal -->
+  <div id="playerModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="playerName">Player Name</h2>
+      <p id="playerPosition" class="position-label">Striker</p>
+      <p id="playerOverall" class="overall-score">94</p>
+      <hr>
+      <p><strong>Ball Handling:</strong> <span id="statBall">0</span>/5</p>
+      <p><strong>Jeep Control:</strong> <span id="statJeep">0</span>/5</p>
+      <p><strong>Defense:</strong> <span id="statDefense">0</span>/5</p>
+    </div>
   </div>
-</div>
-</div>
 
-<script>
-  const modal = document.getElementById("modal");
-  const closeModalBtn = document.getElementById("closeModal");
+  <script>
+    const players = [
+      { name: "fadippa", stars: 5, overall: 94, position: "Striker", stats: { ball: 0, jeep: 0, defense: 0 }},
+      { name: "raintac0l", stars: 5, overall: 93, position: "Striker", stats: { ball: 0, jeep: 0, defense: 0 }},
+      { name: "Srsusdsa", stars: 4, overall: 86, position: "Midfielder", stats: { ball: 0, jeep: 0, defense: 0 }},
+      // No-stats players
+      "Rvzol", "devilbestkiller", "OffXxenemyxX", "CalaMeniq", "yerrsy", "carsonstc",
+      "Clypers", "BrilliantGamer7", "CryptedC0mmando", "executablesan", "NotFxnta",
+      "GhoulzFtp", "mealonhed", "RemnantGuardian", "thuggers0", "iLikeAnimeEgirls1",
+      "InFamedKris", "hyunliqht", "Priest437", "Valkyrie_Kronos", "XXzeroshadow", "987630"
+    ];
 
-  function showModal(playerDiv) {
-    document.getElementById("modalName").textContent = playerDiv.dataset.name;
-    document.getElementById("modalOverall").textContent = playerDiv.dataset.overall;
-    document.getElementById("modalPosition").textContent = playerDiv.dataset.position;
-    document.getElementById("modalBall").textContent = playerDiv.dataset.ball;
-    document.getElementById("modalJeep").textContent = playerDiv.dataset.jeep;
-    document.getElementById("modalDefense").textContent = playerDiv.dataset.defense;
+    const sidebar = document.getElementById("sidebar");
 
-    modal.style.display = "flex";
-  }
+    const sortedPlayers = players.map(p => {
+      if (typeof p === "string") return { name: p, stars: 0 };
+      return p;
+    }).sort((a, b) => b.stars - a.stars);
 
-  closeModalBtn.onclick = () => {
-    modal.style.display = "none";
-  };
+    sortedPlayers.forEach(player => {
+      const div = document.createElement("div");
+      div.className = "player-item";
+      if (!player.stats) {
+        div.classList.add("no-stats");
+      }
 
-  window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
+      const nameSpan = document.createElement("span");
+      nameSpan.textContent = player.name;
 
-document.querySelectorAll(".player-item").forEach(player => {
-  if (!player.classList.contains("no-stats")) {
-    player.addEventListener("click", () => {
-      showModal(player);
+      const starsSpan = document.createElement("span");
+      starsSpan.className = "stars";
+      starsSpan.textContent = "★".repeat(player.stars || 0);
+
+      div.appendChild(nameSpan);
+      div.appendChild(starsSpan);
+
+      if (player.stats) {
+        div.addEventListener("click", () => {
+          document.getElementById("playerName").textContent = player.name;
+          document.getElementById("playerPosition").textContent = player.position;
+          document.getElementById("playerOverall").textContent = player.overall;
+          document.getElementById("statBall").textContent = player.stats.ball;
+          document.getElementById("statJeep").textContent = player.stats.jeep;
+          document.getElementById("statDefense").textContent = player.stats.defense;
+          document.getElementById("playerModal").style.display = "block";
+        });
+      }
+
+      sidebar.appendChild(div);
     });
-  }
-});
-</script>
 
+    // Modal close logic
+    const modal = document.getElementById("playerModal");
+    const close = document.querySelector(".close");
+    close.onclick = () => (modal.style.display = "none");
+    window.onclick = event => {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
 </body>
 </html>
