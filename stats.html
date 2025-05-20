@@ -7,143 +7,129 @@
 <style>
   body {
     margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to top, #2c2f33 0%, #36393f 70%, #40444b 100%);
-    color: #dcddde;
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to top, #2f3136, #36393f);
+    color: #ffffff;
   }
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    background-color: #2f3136;
-    padding: 15px 30px;
-    border-radius: 0;
-    z-index: 1001;
-    display: flex;
-    gap: 20px;
-  }
-  nav a {
-    color: #b9bbbe;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    transition: color 0.2s;
-  }
-  nav a:hover {
-    color: #fff;
-  }
+
   .sidebar {
-    width: 250px;
+    width: 260px;
     background-color: #2f3136;
-    padding-top: 70px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    padding: 10px;
+    height: 100vh;
     overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
+
+  .main-content {
+    margin-left: 260px;
+    padding: 20px;
+  }
+
   .player-item {
-    padding: 10px 20px;
-    cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    background-color: #3a3f45;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
   }
+
   .player-item:hover {
-    background-color: #40444b;
+    background-color: #4752c4;
   }
+
+  .player-item.no-stats {
+    cursor: default;
+    opacity: 0.6;
+  }
+
   .stars {
-    color: #f1c40f;
-    font-weight: 700;
-    user-select: none;
-  }
-  .content-wrapper {
-    flex-grow: 1;
-    padding: 70px 30px 30px 30px;
-    overflow-y: auto;
-  }
-  h1 {
-    margin-top: 0;
-    font-weight: 700;
-    font-size: 36px;
-    color: #fff;
+    color: gold;
+    font-size: 14px;
+    margin-left: 5px;
   }
 
   /* Modal */
-  .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-  }
   .modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+  }
+
+  .modal-content {
     background-color: #2f3136;
-    padding: 30px;
+    margin: 8% auto;
+    padding: 20px;
     border-radius: 10px;
-    max-width: 600px;
-    width: 90%;
-    box-shadow: 0 0 15px rgba(0,0,0,0.9);
-    color: #dcddde;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
   }
-  .modal h2 {
-    margin-top: 0;
-    font-size: 28px;
-  }
-  .close-btn {
-    background: #7289da;
-    border: none;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 5px;
-    cursor: pointer;
+
+  .close {
+    color: #999;
     float: right;
-    font-weight: 600;
-    transition: background 0.3s;
-  }
-  .close-btn:hover {
-    background: #5b6eae;
-  }
-
-  .stat-block {
-    margin-top: 20px;
-    line-height: 1.8;
-    font-size: 16px;
-  }
-
-  .stat-label {
+    font-size: 22px;
     font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #fff;
+  }
+
+  .modal-content h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
     color: #ffffff;
   }
-  /* Scrollbar for WebKit (Chrome, Edge, Safari) */
-::-webkit-scrollbar {
-  width: 12px;
-}
 
-::-webkit-scrollbar-track {
-  background: #2f3136; /* dark background */
-}
+  .modal-content .position-label {
+    font-size: 16px;
+    color: #b9bbbe;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 
-::-webkit-scrollbar-thumb {
-  background-color: #5865F2; /* Discord blurple */
-  border-radius: 6px;
-  border: 3px solid #2f3136;
-}
+  .modal-content .overall-score {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 15px;
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #4752C4;
-}
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
 
-/* For Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #181927 #2f3136;
-}
+  ::-webkit-scrollbar-track {
+    background: #2f3136;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5865F2;
+    border-radius: 6px;
+    border: 3px solid #2f3136;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #4752C4;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #161827 #2f3136;
+  }
 </style>
 </head>
 <body>
@@ -202,18 +188,18 @@
 </div>
 
 <!-- Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <button class="close-btn" id="closeModal">Close</button>
-    <h2 id="modalName">Player Name</h2>
-    <div class="stat-block">
-      <p><span class="stat-label">Overall:</span> <span id="modalOverall"></span>/100</p>
-      <p><span class="stat-label">Main Position:</span> <span id="modalPosition"></span></p>
-      <p><span class="stat-label">Ball Handling:</span> <span id="modalBall"></span>/5</p>
-      <p><span class="stat-label">Jeep Control:</span> <span id="modalJeep"></span>/5</p>
-      <p><span class="stat-label">Defense:</span> <span id="modalDefense"></span>/5</p>
-    </div>
+<div id="playerModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="playerName">Player Name</h2>
+    <p id="playerPosition" class="position-label">Striker</p>
+    <p id="playerOverall" class="overall-score">94</p>
+    <hr>
+    <p><strong>Ball Handling:</strong> <span id="statBall">0</span>/5</p>
+    <p><strong>Jeep Control:</strong> <span id="statJeep">0</span>/5</p>
+    <p><strong>Defense:</strong> <span id="statDefense">0</span>/5</p>
   </div>
+</div>
 </div>
 
 <script>
