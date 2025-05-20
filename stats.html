@@ -14,10 +14,12 @@
     }
    /* Top Navigation Bar */
 nav {
-  background-color: #2f3136; /* Slightly lighter dark nav */
+  background-color: #2f3136;
   padding: 15px 30px;
-  border-radius: 5px;
-  margin-bottom: 30px;
+  border-radius: 0 5px 5px 0; /* remove left rounding so it connects with sidebar */
+  margin: 0;
+  margin-left: -30px; /* offset to align with full width */
+  width: calc(100% + 30px); /* expand to line up */
   display: flex;
 }
 
@@ -33,17 +35,20 @@ nav a {
 nav a:hover {
   color: #ffffff; /* Brighten on hover */
 }
-nav, .main-nav {
-  margin-bottom: 0;
-}
     .sidebar {
-  margin-top: 0;
-  /* Or if you have padding or margin causing the gap, remove it */
+  position: fixed;
+  top: 60px; /* below nav bar */
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 50px);
+  background-color: #2f3136;
+  padding: 20px 10px;
+  overflow-y: auto;
 }
 
 .main-content {
   margin-left: 280px;
-  margin-top: 15px; /* below nav bar */
+  margin-top: px; /* below nav bar */
   padding: 20px;
   color: white;
 }
