@@ -34,11 +34,10 @@
   nav a:hover {
     color: #fff;
   }
-  /* Sidebar */
   .sidebar {
     width: 200px;
     background-color: #2f3136;
-    padding-top: 70px; /* leave space for nav */
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -57,11 +56,10 @@
     background-color: #40444b;
   }
   .stars {
-    color: #f1c40f; /* gold color */
+    color: #f1c40f;
     font-weight: 700;
     user-select: none;
   }
-  /* Content area */
   .content-wrapper {
     flex-grow: 1;
     padding: 70px 30px 30px 30px;
@@ -73,7 +71,8 @@
     font-size: 36px;
     color: #fff;
   }
-  /* Modal (popup) */
+
+  /* Modal */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -85,15 +84,16 @@
   }
   .modal {
     background-color: #2f3136;
-    padding: 25px;
+    padding: 30px;
     border-radius: 10px;
-    max-width: 400px;
+    max-width: 600px;
     width: 90%;
     box-shadow: 0 0 15px rgba(0,0,0,0.9);
     color: #dcddde;
   }
   .modal h2 {
     margin-top: 0;
+    font-size: 28px;
   }
   .close-btn {
     background: #7289da;
@@ -109,20 +109,16 @@
   .close-btn:hover {
     background: #5b6eae;
   }
-  /* Stats table inside modal */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    color: #dcddde;
+
+  .stat-block {
+    margin-top: 20px;
+    line-height: 1.8;
+    font-size: 16px;
   }
-  th, td {
-    border: 1px solid #40444b;
-    padding: 8px 12px;
-    text-align: left;
-  }
-  th {
-    background-color: #36393f;
+
+  .stat-label {
+    font-weight: bold;
+    color: #ffffff;
   }
 </style>
 </head>
@@ -135,11 +131,18 @@
 </nav>
 
 <div class="sidebar">
-  <div class="player-item" data-name="fadippa" data-stars="5" data-matches="10" data-goals="7" data-assists="3" data-yellow="1" data-red="0">
+  <div class="player-item" data-name="fadippa" data-stars="5" data-overall="94" data-position="Striker" data-ball="5" data-jeep="4" data-defense="3">
     <span>fadippa</span>
     <span class="stars">★★★★★</span>
   </div>
-  <!-- Add more players here -->
+  <div class="player-item" data-name="raintac0l" data-stars="5" data-overall="93" data-position="Striker" data-ball="4" data-jeep="5" data-defense="4">
+    <span>raintac0l</span>
+    <span class="stars">★★★★★</span>
+  </div>
+  <div class="player-item" data-name="Srsusdsa" data-stars="4" data-overall="86" data-position="Midfielder" data-ball="3" data-jeep="4" data-defense="3">
+    <span>Srsusdsa</span>
+    <span class="stars">★★★★☆</span>
+  </div>
 </div>
 
 <div class="content-wrapper">
@@ -152,15 +155,13 @@
   <div class="modal">
     <button class="close-btn" id="closeModal">Close</button>
     <h2 id="modalName">Player Name</h2>
-    <table>
-      <tbody>
-        <tr><th>Matches Played</th><td id="modalMatches"></td></tr>
-        <tr><th>Goals</th><td id="modalGoals"></td></tr>
-        <tr><th>Assists</th><td id="modalAssists"></td></tr>
-        <tr><th>Yellow Cards</th><td id="modalYellow"></td></tr>
-        <tr><th>Red Cards</th><td id="modalRed"></td></tr>
-      </tbody>
-    </table>
+    <div class="stat-block">
+      <p><span class="stat-label">Overall:</span> <span id="modalOverall"></span>/100</p>
+      <p><span class="stat-label">Main Position:</span> <span id="modalPosition"></span></p>
+      <p><span class="stat-label">Ball Handling:</span> <span id="modalBall"></span>/5</p>
+      <p><span class="stat-label">Jeep Control:</span> <span id="modalJeep"></span>/5</p>
+      <p><span class="stat-label">Defense:</span> <span id="modalDefense"></span>/5</p>
+    </div>
   </div>
 </div>
 
@@ -168,31 +169,27 @@
   const modal = document.getElementById("modal");
   const closeModalBtn = document.getElementById("closeModal");
 
-  // Show modal with player data
   function showModal(playerDiv) {
     document.getElementById("modalName").textContent = playerDiv.dataset.name;
-    document.getElementById("modalMatches").textContent = playerDiv.dataset.matches;
-    document.getElementById("modalGoals").textContent = playerDiv.dataset.goals;
-    document.getElementById("modalAssists").textContent = playerDiv.dataset.assists;
-    document.getElementById("modalYellow").textContent = playerDiv.dataset.yellow;
-    document.getElementById("modalRed").textContent = playerDiv.dataset.red;
+    document.getElementById("modalOverall").textContent = playerDiv.dataset.overall;
+    document.getElementById("modalPosition").textContent = playerDiv.dataset.position;
+    document.getElementById("modalBall").textContent = playerDiv.dataset.ball;
+    document.getElementById("modalJeep").textContent = playerDiv.dataset.jeep;
+    document.getElementById("modalDefense").textContent = playerDiv.dataset.defense;
 
     modal.style.display = "flex";
   }
 
-  // Close modal
   closeModalBtn.onclick = () => {
     modal.style.display = "none";
   };
 
-  // Close modal on outside click
   window.onclick = (event) => {
     if (event.target === modal) {
       modal.style.display = "none";
     }
   };
 
-  // Add click listeners to all players
   document.querySelectorAll(".player-item").forEach(player => {
     player.addEventListener("click", () => {
       showModal(player);
