@@ -131,6 +131,7 @@
 </nav>
 
 <div class="sidebar">
+  <!-- 5 Stars -->
   <div class="player-item" data-name="fadippa" data-stars="5" data-overall="94" data-position="Striker" data-ball="5" data-jeep="4" data-defense="3">
     <span>fadippa</span>
     <span class="stars">★★★★★</span>
@@ -139,10 +140,36 @@
     <span>raintac0l</span>
     <span class="stars">★★★★★</span>
   </div>
+
+  <!-- 4 Stars -->
   <div class="player-item" data-name="Srsusdsa" data-stars="4" data-overall="86" data-position="Midfielder" data-ball="3" data-jeep="4" data-defense="3">
     <span>Srsusdsa</span>
     <span class="stars">★★★★☆</span>
   </div>
+
+  <!-- 0 Stars - No stats yet -->
+  <div class="player-item no-stats"><span>Rvzol</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>devilbestkiller</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>OffXxenemyxX</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>CalaMeniq</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>yerrsy</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>carsonstc</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>Clypers</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>BrilliantGamer7</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>CryptedC0mmando</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>executablesan</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>NotFxnta</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>GhoulzFtp</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>mealonhed</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>RemnantGuardian</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>thuggers0</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>iLikeAnimeEgirls1</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>InFamedKris</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>hyunliqht</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>Priest437</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>Valkyrie_Kronos</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>XXzeroshadow</span><span class="stars">☆☆☆☆☆</span></div>
+  <div class="player-item no-stats"><span>987630</span><span class="stars">☆☆☆☆☆</span></div>
 </div>
 
 <div class="content-wrapper">
@@ -190,11 +217,13 @@
     }
   };
 
-  document.querySelectorAll(".player-item").forEach(player => {
+document.querySelectorAll(".player-item").forEach(player => {
+  if (!player.classList.contains("no-stats")) {
     player.addEventListener("click", () => {
       showModal(player);
     });
-  });
+  }
+});
 </script>
 
 </body>
